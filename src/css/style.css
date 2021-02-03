@@ -1,0 +1,33 @@
+.lidow-blocker {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+.lidow-blocker.lidow-active {
+  display: flex;
+}
+.lidow-progress {
+  background-color: white;
+  padding: 1em;
+}
+.lidow-progress > .lidow-progress-barContainer {
+  background-color: #c8c8c8;
+  height: 30px;
+  width: 500px;
+}
+.lidow-progress > .lidow-progress-barContainer > .lidow-progress-barProgress {
+  background-color: #5582ba;
+  height: 100%;
+  transition: 0.1s ease-in-out;
+  width: 0%;
+}
+.lidow-progress > .lidow-progress-subContainer .lidow-progress {
+  padding: 1em 0;
+}
