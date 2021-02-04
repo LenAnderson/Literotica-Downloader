@@ -2,7 +2,7 @@
 // @name         Literotica Downloader
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Literotica-Downloader/raw/master/Literotica-Downloader.user.js
-// @version      3.1.0
+// @version      3.2.0
 // @author       LenAnderson (complete rewrite, based on the script by Patrick Kolodziejczyk)
 // @match        https://www.literotica.com/stories/memberpage.php*
 // @grant        GM_download
@@ -152,12 +152,16 @@ class Book {
 		throw 'getter for Book.filename is not implemented';
 	}
 
+	get filenameWithExtension() {
+		throw 'getter for Book.filenameWithExtension is not implemented';
+	}
+
 
 
 
 	async create() {
 		this.content = '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{{title}}</title><meta name=\"author\" content=\"{{author}}\"><style>{{style}}</style></head><body><div class=\"filename\">{{filename}}</div>{{content}}<h2>END.</h2></body></html>'
-				.replace('{{style}}', 'body {  background-color: #333333;  color: #EEEEEE;  font-family: Helvetica, Arial, sans-serif;  width: 50%;  margin: 0 auto;  line-height: 1.5em;  font-size: 2.2em;  padding: 50px 0 50px 0;}.chapterSeparator {  background: radial-gradient(#969696 0%, transparent 50%);  border: none;  border-radius: 100%;  height: 8px;  margin: 3em auto;}.filename,.chapterNumber,.chapterEnd {  color: #969696;}.header {  line-height: 1.4em;}')
+				.replace('{{style}}', 'body {  background-color: #333333;  color: #EEEEEE;  font-family: Helvetica, Arial, sans-serif;  width: 50%;  margin: 0 auto;  line-height: 1.5em;  font-size: 2.2em;  padding: 50px 0 50px 0;}.chapterSeparator {  color: #969696;  margin: 3em auto;}.filename,.chapterNumber,.chapterEnd {  color: #969696;}.header {  line-height: 1.4em;}')
 				.replace('{{author}}', this.author)
 				.replace('{{title}}', this.title)
 				.replace('{{filename}}', this.filename)
@@ -176,7 +180,7 @@ class Book {
 			log('downloading...', url);
 			GM_download({
 				url: url,
-				name: this.filename,
+				name: this.filenameWithExtension,
 				onerror: (err)=>log(err)
 			});
 		} else {
@@ -219,9 +223,13 @@ class StoryBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author}).html`;
+			this._filename = `${this.title} (${this.author})`;
 		}
 		return this._filename;
+	}
+
+	get filenameWithExtension() {
+		return `${this.filename}.html`;
 	}
 
 
@@ -290,9 +298,13 @@ class SeriesBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author}, ${this.chapters.length}).html`;
+			this._filename = `${this.title} (${this.author}, ${this.chapters.length})`;
 		}
 		return this._filename;
+	}
+
+	get filenameWithExtension() {
+		return `${this.filename}.html`;
 	}
 
 	get chapters() {
@@ -323,8 +335,9 @@ class SeriesBook extends Book {
 			this.progress.status = `Getting chapter ${index+1} of ${this.chapters.length}`;
 			this.progress.subProgress = chapter.progress;
 			if (index > 0) {
-				const chapterSeparator = document.createElement('hr'); {
+				const chapterSeparator = document.createElement('div'); {
 					chapterSeparator.classList.add('chapterSeparator');
+					chapterSeparator.textContent = '='.repeat(50);
 					body.appendChild(chapterSeparator);
 				}
 			}
