@@ -2,7 +2,7 @@
 // @name         Literotica Downloader
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Literotica-Downloader/raw/master/Literotica-Downloader.user.js
-// @version      3.0.0
+// @version      3.1.0
 // @author       LenAnderson (complete rewrite, based on the script by Patrick Kolodziejczyk)
 // @match        https://www.literotica.com/stories/memberpage.php*
 // @grant        GM_download
@@ -283,7 +283,7 @@ class SeriesBook extends Book {
 
 	get title() {
 		if (!this._title) {
-			this._title = this.root.querySelector('strong').textContent;
+			this._title = this.root.querySelector('strong').textContent.replace(/\: \d+ Part Series$/, '');
 		}
 		return this._title;
 	}
@@ -330,15 +330,10 @@ class SeriesBook extends Book {
 			}
 			const chapterNumber = document.createElement('h2'); {
 				chapterNumber.classList.add('chapterNumber');
-				chapterNumber.textContent = `Chapter ${index+1}`;
+				chapterNumber.textContent = `Chapter ${String(index+1).padStart(2, '0')}`;
 				body.appendChild(chapterNumber);
 			}
 			body.appendChild(await chapter.retrieveContentDom());
-			const chapterEnd = document.createElement('h2'); {
-				chapterEnd.classList.add('chapterEnd');
-				chapterEnd.textContent = `End Chapter ${index+1}`;
-				body.appendChild(chapterEnd);
-			}
 		}
 		return body.innerHTML;
 	}
