@@ -12,7 +12,7 @@ class SeriesBook extends Book {
 
 	get title() {
 		if (!this._title) {
-			this._title = this.root.querySelector('strong').textContent;
+			this._title = this.root.querySelector('strong').textContent.replace(/\: \d+ Part Series$/, '');
 		}
 		return this._title;
 	}
