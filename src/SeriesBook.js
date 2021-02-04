@@ -59,7 +59,7 @@ class SeriesBook extends Book {
 			}
 			const chapterNumber = document.createElement('h2'); {
 				chapterNumber.classList.add('chapterNumber');
-				chapterNumber.textContent = `Chapter ${index+1}`;
+				chapterNumber.textContent = `Chapter ${String(index+1).padStart(2, '0')}`;
 				body.appendChild(chapterNumber);
 			}
 			body.appendChild(await chapter.retrieveContentDom());
