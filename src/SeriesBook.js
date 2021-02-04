@@ -63,11 +63,6 @@ class SeriesBook extends Book {
 				body.appendChild(chapterNumber);
 			}
 			body.appendChild(await chapter.retrieveContentDom());
-			const chapterEnd = document.createElement('h2'); {
-				chapterEnd.classList.add('chapterEnd');
-				chapterEnd.textContent = `End Chapter ${index+1}`;
-				body.appendChild(chapterEnd);
-			}
 		}
 		return body.innerHTML;
 	}
