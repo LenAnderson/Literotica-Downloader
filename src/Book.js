@@ -28,6 +28,10 @@ class Book {
 		throw 'getter for Book.filename is not implemented';
 	}
 
+	get filenameWithExtension() {
+		throw 'getter for Book.filenameWithExtension is not implemented';
+	}
+
 
 
 
@@ -52,7 +56,7 @@ class Book {
 			log('downloading...', url);
 			GM_download({
 				url: url,
-				name: this.filename,
+				name: this.filenameWithExtension,
 				onerror: (err)=>log(err)
 			});
 		} else {

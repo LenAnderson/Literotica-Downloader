@@ -19,9 +19,13 @@ class SeriesBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author}, ${this.chapters.length}).html`;
+			this._filename = `${this.title} (${this.author}, ${this.chapters.length})`;
 		}
 		return this._filename;
+	}
+
+	get filenameWithExtension() {
+		return `${this.filename}.html`;
 	}
 
 	get chapters() {
