@@ -55,6 +55,7 @@ class SeriesBook extends Book {
 			this.progress.currentStep++;
 			this.progress.status = `Getting chapter ${index+1} of ${this.chapters.length}`;
 			this.progress.subProgress = chapter.progress;
+			body.appendChild(document.createElement('br'));
 			if (index > 0) {
 				const chapterSeparator = document.createElement('div'); {
 					chapterSeparator.classList.add('chapterSeparator');
@@ -62,6 +63,7 @@ class SeriesBook extends Book {
 					body.appendChild(chapterSeparator);
 				}
 			}
+			body.appendChild(document.createElement('br'));
 			const chapterNumber = document.createElement('h2'); {
 				chapterNumber.classList.add('chapterNumber');
 				chapterNumber.textContent = `Chapter ${String(index+1).padStart(2, '0')}`;
