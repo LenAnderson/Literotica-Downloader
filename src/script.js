@@ -2,7 +2,7 @@
 // @name         Literotica Downloader
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Literotica-Downloader/raw/master/Literotica-Downloader.user.js
-// @version      3.3.0
+// @version      3.4.0
 // @author       LenAnderson (complete rewrite, based on the script by Patrick Kolodziejczyk)
 // @match        https://www.literotica.com/stories/memberpage.php*
 // @grant        GM_download
