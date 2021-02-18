@@ -34,7 +34,7 @@ class StoryBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author})`;
+			this._filename = `${this.ucTitle} (${this.author})`;
 		}
 		return this._filename;
 	}

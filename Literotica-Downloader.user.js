@@ -147,6 +147,9 @@ class Book {
 	get title() {
 		throw 'getter for Book.title is not implemented';
 	}
+	get ucTitle() {
+		return this.title.split(' ').map(it=>`${it[0].toUpperCase()}${it.substring(1)}`).join(' ');
+	}
 
 	get filename() {
 		throw 'getter for Book.filename is not implemented';
@@ -163,7 +166,7 @@ class Book {
 		this.content = '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>{{title}}</title><meta name=\"author\" content=\"{{author}}\"><style>{{style}}</style></head><body><div class=\"filename\">{{filename}}</div>{{content}}<h2>END.</h2></body></html>'
 				.replace('{{style}}', 'body {  background-color: #333333;  color: #EEEEEE;  font-family: Helvetica, Arial, sans-serif;  width: 50%;  margin: 0 auto;  line-height: 1.5em;  font-size: 2.2em;  padding: 50px 0 50px 0;}.chapterSeparator {  color: #969696;  margin: 3em auto;}.filename,.chapterNumber,.chapterEnd {  color: #969696;}.header {  line-height: 1.4em;}')
 				.replace('{{author}}', this.author)
-				.replace('{{title}}', this.title)
+				.replace('{{title}}', this.ucTitle)
 				.replace('{{filename}}', this.filename)
 				.replace('{{content}}', await this.retrieveContent());
 	}
@@ -223,7 +226,7 @@ class StoryBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author})`;
+			this._filename = `${this.ucTitle} (${this.author})`;
 		}
 		return this._filename;
 	}
@@ -298,7 +301,7 @@ class SeriesBook extends Book {
 
 	get filename() {
 		if (!this._filename) {
-			this._filename = `${this.title} (${this.author}, ${this.chapters.length})`;
+			this._filename = `${this.ucTitle} (${this.author}, ${this.chapters.length})`;
 		}
 		return this._filename;
 	}

@@ -23,6 +23,9 @@ class Book {
 	get title() {
 		throw 'getter for Book.title is not implemented';
 	}
+	get ucTitle() {
+		return this.title.split(' ').map(it=>`${it[0].toUpperCase()}${it.substring(1)}`).join(' ');
+	}
 
 	get filename() {
 		throw 'getter for Book.filename is not implemented';
@@ -39,7 +42,7 @@ class Book {
 		this.content = '${include-min-esc: html/Book.html}'
 				.replace('{{style}}', '${include-min-esc: css/book.css}')
 				.replace('{{author}}', this.author)
-				.replace('{{title}}', this.title)
+				.replace('{{title}}', this.ucTitle)
 				.replace('{{filename}}', this.filename)
 				.replace('{{content}}', await this.retrieveContent());
 	}
