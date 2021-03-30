@@ -5,6 +5,7 @@
 // @version      3.4.0
 // @author       LenAnderson (complete rewrite, based on the script by Patrick Kolodziejczyk)
 // @match        https://www.literotica.com/stories/memberpage.php*
+// @connect      classic.literotica.com
 // @grant        GM_download
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
