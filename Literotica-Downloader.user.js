@@ -2,10 +2,12 @@
 // @name         Literotica Downloader
 // @namespace    https://github.com/LenAnderson/
 // @downloadURL  https://github.com/LenAnderson/Literotica-Downloader/raw/master/Literotica-Downloader.user.js
-// @version      3.4.0
+// @version      3.4.1
 // @author       LenAnderson (complete rewrite, based on the script by Patrick Kolodziejczyk)
 // @match        https://www.literotica.com/stories/memberpage.php*
+// @connect      classic.literotica.com
 // @grant        GM_download
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 (()=>{
@@ -20,15 +22,12 @@
 
 	const get = (url) => {
 		return new Promise((resolve,reject)=>{
-			const xhr = new XMLHttpRequest();
-			xhr.open('GET', url, true);
-			xhr.addEventListener('load', ()=>{
-				resolve(xhr.responseText);
+			GM_xmlhttpRequest({				
+				method: 'GET',
+				url: url,
+				onload: (response)=>resolve(response.responseText),
+				onerror: (response)=>reject(response)
 			});
-			xhr.addEventListener('error', ()=>{
-				reject(xhr);
-			});
-			xhr.send();
 		});
 	};
 	const getHtml = (url) => {
